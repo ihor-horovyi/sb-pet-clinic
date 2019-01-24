@@ -1,4 +1,4 @@
 package horovyi.petclinic.model;
 
-public class Pet {
+public class Pet extends BaseEntity {
 }
