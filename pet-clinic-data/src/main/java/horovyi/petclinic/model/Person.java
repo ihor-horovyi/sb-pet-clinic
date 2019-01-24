@@ -1,4 +1,4 @@
-package petclinic.model;
+package horovyi.petclinic.model;
 
 import lombok.Getter;
 import lombok.Setter;
