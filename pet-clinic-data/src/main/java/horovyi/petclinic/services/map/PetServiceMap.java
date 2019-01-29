@@ -1,11 +1,13 @@
 package horovyi.petclinic.services.map;
 
 import horovyi.petclinic.model.Pet;
-import horovyi.petclinic.services.CrudService;
+import horovyi.petclinic.services.PetService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-public class PetServiceMap extends AbstractMapService<Pet, Long> implements CrudService<Pet, Long> {
+@Service
+public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
 
     @Override
     public Set<Pet> findAll() {

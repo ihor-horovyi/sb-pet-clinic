@@ -1,15 +1,17 @@
 package horovyi.petclinic.services.map;
 
+import horovyi.petclinic.services.CrudService;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AbstractMapService<T, ID> {
+public abstract class AbstractMapService<T, ID> implements CrudService<T, ID> {
 
-    protected Map<ID, T> map = new HashMap<>();
+    private Map<ID, T> map = new HashMap<>();
 
-    Set<T> findAll() {
+    public Set<T> findAll() {
         return new HashSet<>(map.values());
     }
 
@@ -17,15 +19,15 @@ public abstract class AbstractMapService<T, ID> {
         return map.get(id);
     }
 
-    T save(ID id, T object) {
+    public T save(ID id, T object) {
         return map.put(id, object);
     }
 
-    void deleteById(ID id) {
+    public void deleteById(ID id) {
         map.remove(id);
     }
 
-    void delete(T object) {
+    public void delete(T object) {
         map.entrySet().removeIf(e -> e.getValue() != null && e.getValue().equals(object));
     }
 
