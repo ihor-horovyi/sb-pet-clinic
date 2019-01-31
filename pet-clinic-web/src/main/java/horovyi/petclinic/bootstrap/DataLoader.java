@@ -31,14 +31,11 @@ public class DataLoader implements CommandLineRunner {
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
-        owner2.setId(1L);
+        owner2.setId(2L);
         owner2.setFirstName("Petr");
         owner2.setLastName("Petrov");
 
         ownerService.save(owner2);
-
-        System.out.println("Loading owners...");
-
 
         Vet vet1 = new Vet();
         vet1.setId(1L);
