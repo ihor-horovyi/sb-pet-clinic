@@ -1,15 +1,15 @@
 package horovyi.petclinic.services.map;
 
+import horovyi.petclinic.model.BaseEntity;
 import horovyi.petclinic.services.CrudService;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AbstractMapService<T, ID> implements CrudService<T, ID> {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> implements CrudService<T, ID> {
 
-    private Map<ID, T> map = new HashMap<>();
+    private Map<Long, T> map = new HashMap<>();
 
     public Set<T> findAll() {
         return new HashSet<>(map.values());
@@ -19,8 +19,15 @@ public abstract class AbstractMapService<T, ID> implements CrudService<T, ID> {
         return map.get(id);
     }
 
-    public T save(ID id, T object) {
-        return map.put(id, object);
+    public T save(T object) {
+        if (object == null) {
+            throw new RuntimeException("Object cannot be null");
+        }
+
+        if (object.getId() == null) {
+            object.setId(getNextId());
+        }
+        return map.put(object.getId(), object);
     }
 
     public void deleteById(ID id) {
@@ -29,6 +36,10 @@ public abstract class AbstractMapService<T, ID> implements CrudService<T, ID> {
 
     public void delete(T object) {
         map.entrySet().removeIf(e -> e.getValue() != null && e.getValue().equals(object));
+    }
+
+    private Long getNextId() {
+        return map.keySet().stream().max(Long::compareTo).orElse(0L) + 1;
     }
 
 }
