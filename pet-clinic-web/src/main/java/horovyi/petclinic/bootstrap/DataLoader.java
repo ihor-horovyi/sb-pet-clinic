@@ -1,6 +1,7 @@
 package horovyi.petclinic.bootstrap;
 
 import horovyi.petclinic.model.Owner;
+import horovyi.petclinic.model.Pet;
 import horovyi.petclinic.model.PetType;
 import horovyi.petclinic.model.Vet;
 import horovyi.petclinic.services.OwnerService;
@@ -8,6 +9,8 @@ import horovyi.petclinic.services.PetTypeService;
 import horovyi.petclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 /**
  * Created by ihor.horovyi 2019-01-30
@@ -28,11 +31,11 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         PetType savedDogPetType = savePetType("Dog");
-        PetType catDogPetType = savePetType("Cat");
+        PetType catCatPetType = savePetType("Cat");
         System.out.println("Loaded pet types...");
 
-        saveOwner("Ivan", "Ivanov");
-        saveOwner("Petr", "Petrov");
+        saveOwner("Ivan", "Ivanov", "My Dog", savedDogPetType);
+        saveOwner("Petr", "Petrov", "My Cat", catCatPetType);
         System.out.println("Loaded owners...");
 
         saveVet("Mike", "Ekim");
@@ -40,11 +43,27 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Loaded vets...");
     }
 
-    private void saveOwner(String firstName, String lastName) {
+    private void saveOwner(String firstName, String lastName, String petName, PetType petType) {
         Owner owner = new Owner();
         owner.setFirstName(firstName);
         owner.setLastName(lastName);
+        owner.setAddress("123 SomeAddress");
+        owner.setCity("New York");
+        owner.setTelephone("1241234312");
+
+        Pet pet = createPet(petName, owner, petType);
+        owner.getPets().add(pet);
+
         ownerService.save(owner);
+    }
+
+    private static Pet createPet(String name, Owner owner, PetType petType) {
+        Pet pet = new Pet();
+        pet.setName(name);
+        pet.setBirthDate(LocalDate.now());
+        pet.setOwner(owner);
+        pet.setPetType(petType);
+        return pet;
     }
 
     private void saveVet(String firstName, String lastName) {

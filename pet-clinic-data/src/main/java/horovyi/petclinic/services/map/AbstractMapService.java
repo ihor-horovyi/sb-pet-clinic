@@ -2,6 +2,7 @@ package horovyi.petclinic.services.map;
 
 import horovyi.petclinic.model.BaseEntity;
 import horovyi.petclinic.services.CrudService;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -27,7 +28,9 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
         if (object.getId() == null) {
             object.setId(getNextId());
         }
-        return map.put(object.getId(), object);
+
+        map.put(object.getId(), object);
+        return findById((ID) object.getId());
     }
 
     public void deleteById(ID id) {
