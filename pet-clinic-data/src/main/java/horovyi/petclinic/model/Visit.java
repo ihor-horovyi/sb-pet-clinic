@@ -7,14 +7,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/**
+ * Created by ihor.horovyi 2019-02-21
+ */
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Pet extends BaseEntity {
+@AllArgsConstructor
+public class Visit extends BaseEntity {
 
-    private PetType petType;
-    private Owner owner;
-    private LocalDate birthDate;
+    private LocalDate date;
+    private String description;
+    private Pet pet;
 
 }
