@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
-@Getter @Setter
-@NoArgsConstructor
+/**
+ * Created by ihor.horovyi 2019-02-21
+ */
+@Getter
+@Setter
 @AllArgsConstructor
-public class Vet extends Person {
-
-    private Set<Speciality> specialities;
-
+@NoArgsConstructor
+public class Speciality extends BaseEntity {
+    private String description;
 }
