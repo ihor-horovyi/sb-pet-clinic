@@ -1,8 +1,10 @@
 package horovyi.petclinic.bootstrap;
 
 import horovyi.petclinic.model.Owner;
+import horovyi.petclinic.model.PetType;
 import horovyi.petclinic.model.Vet;
 import horovyi.petclinic.services.OwnerService;
+import horovyi.petclinic.services.PetTypeService;
 import horovyi.petclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,41 +15,48 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    private OwnerService ownerService;
-    private VetService vetService;
+    private final OwnerService ownerService;
+    private final VetService vetService;
+    private final PetTypeService petTypeService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        Owner owner1 = new Owner();
-        owner1.setFirstName("Ivan");
-        owner1.setLastName("Ivanov");
+        PetType savedDogPetType = savePetType("Dog");
+        PetType catDogPetType = savePetType("Cat");
+        System.out.println("Loaded pet types...");
 
-        ownerService.save(owner1);
+        saveOwner("Ivan", "Ivanov");
+        saveOwner("Petr", "Petrov");
+        System.out.println("Loaded owners...");
 
-        Owner owner2 = new Owner();
-        owner2.setFirstName("Petr");
-        owner2.setLastName("Petrov");
+        saveVet("Mike", "Ekim");
+        saveVet("Sem", "Mem");
+        System.out.println("Loaded vets...");
+    }
 
-        ownerService.save(owner2);
+    private void saveOwner(String firstName, String lastName) {
+        Owner owner = new Owner();
+        owner.setFirstName(firstName);
+        owner.setLastName(lastName);
+        ownerService.save(owner);
+    }
 
-        Vet vet1 = new Vet();
-        vet1.setFirstName("Mike");
-        vet1.setLastName("Ekim");
+    private void saveVet(String firstName, String lastName) {
+        Vet vet = new Vet();
+        vet.setFirstName(firstName);
+        vet.setLastName(lastName);
+        vetService.save(vet);
+    }
 
-        vetService.save(vet1);
-
-        Vet vet2= new Vet();
-        vet2.setFirstName("Sem");
-        vet2.setLastName("Mem");
-
-        vetService.save(vet2);
-
-        System.out.println("Loading vets...");
-
+    private PetType savePetType(String name) {
+        PetType petType = new PetType();
+        petType.setName(name);
+        return petTypeService.save(petType);
     }
 }

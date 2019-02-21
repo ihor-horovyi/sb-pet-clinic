@@ -2,12 +2,14 @@ package horovyi.petclinic.services.map;
 
 import horovyi.petclinic.model.PetType;
 import horovyi.petclinic.services.PetTypeService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 /**
  * Created by ihor.horovyi 2019-02-21
  */
+@Service
 public class PetTypeMapService extends AbstractMapService<PetType, Long> implements PetTypeService {
 
     @Override
