@@ -1,7 +1,7 @@
 package horovyi.petclinic.services.map;
 
-import horovyi.petclinic.model.Speciality;
-import horovyi.petclinic.services.SpecialityService;
+import horovyi.petclinic.model.Specialty;
+import horovyi.petclinic.services.SpecialtyService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -10,20 +10,20 @@ import java.util.Set;
  * Created by ihor.horovyi 2019-02-21
  */
 @Service
-public class SpecialityMapService extends AbstractMapService<Speciality, Long> implements SpecialityService {
+public class SpecialtyMapService extends AbstractMapService<Specialty, Long> implements SpecialtyService {
 
     @Override
-    public Set<Speciality> findAll() {
+    public Set<Specialty> findAll() {
         return super.findAll();
     }
 
     @Override
-    public Speciality findById(Long aLong) {
+    public Specialty findById(Long aLong) {
         return super.findById(aLong);
     }
 
     @Override
-    public Speciality save(Speciality object) {
+    public Specialty save(Specialty object) {
         return super.save(object);
     }
 
@@ -33,7 +33,7 @@ public class SpecialityMapService extends AbstractMapService<Speciality, Long> i
     }
 
     @Override
-    public void delete(Speciality object) {
+    public void delete(Specialty object) {
         super.delete(object);
     }
 }
